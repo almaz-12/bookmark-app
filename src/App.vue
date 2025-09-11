@@ -4,7 +4,7 @@ import UserProfile from './components/UserProfile.vue';
 import { BASE_ROUTES } from './common/constants';
 import type { User } from './interfaces/user';
 
-const userName = ref<User>();
+const userData = ref<User>();
 const errorMessage = ref('');
 const isLoading = ref(false);
 
@@ -19,7 +19,7 @@ const fetchData = async () => {
 
     const data = (await response.json()) as User;
     console.log(data);
-    userName.value = data;
+    userData.value = data;
 
     return data;
   } catch (error) {
@@ -30,12 +30,8 @@ const fetchData = async () => {
   }
 };
 
-async function getUser() {
+onMounted(async () => {
   await fetchData();
-}
-
-onMounted(() => {
-  getUser();
 });
 </script>
 
@@ -46,7 +42,7 @@ onMounted(() => {
       <div v-else-if="errorMessage">{{ errorMessage }}</div>
       <div class="app__main" v-else>
         <nav class="nav">
-          <UserProfile v-if="userName" :name="userName.name" />
+          <UserProfile v-if="userData" :name="userData.name" />
         </nav>
         <main>контент</main>
       </div>
