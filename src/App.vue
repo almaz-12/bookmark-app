@@ -1,48 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import UserProfile from './components/UserProfile.vue';
-import { BASE_ROUTES } from './common/constants';
-import type { User } from './interfaces/user';
-
-const userData = ref<User>();
-const errorMessage = ref('');
-const isLoading = ref(false);
-
-const fetchData = async () => {
-  try {
-    errorMessage.value = '';
-    isLoading.value = true;
-
-    const response = await fetch(BASE_ROUTES.user);
-
-    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-
-    const data = (await response.json()) as User;
-    console.log(data);
-    userData.value = data;
-
-    return data;
-  } catch (error) {
-    errorMessage.value = 'Не удалось загрузить данные';
-    throw error;
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-onMounted(async () => {
-  await fetchData();
-});
 </script>
 
 <template>
   <div class="app">
     <div class="wrap">
-      <div v-if="isLoading">Загрузка...</div>
-      <div v-else-if="errorMessage">{{ errorMessage }}</div>
-      <div class="app__main" v-else>
+      <div class="app__main">
         <nav class="nav">
-          <UserProfile v-if="userData" :name="userData.name" />
+          <UserProfile />
         </nav>
         <main>контент</main>
       </div>

@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import UserAvatar from './UserAvatar.vue';
-import { AVATAR_URL } from '../common/constants';
+import { onMounted } from 'vue';
+import { useUserStore } from '../stores/user.store';
 
-interface UserProfileProps {
-  name: string;
-}
-const { name } = defineProps<UserProfileProps>();
+const store = useUserStore();
+
+onMounted(async () => {
+  await store.fetchData();
+});
 </script>
 
 <template>
-  <div class="user-profile">
-    <UserAvatar :url="AVATAR_URL" :width="80" />
-    <div>Привет, {{ name }}!</div>
+  <div class="user-profile" v-if="store.userData" :name="store.userData.name">
+    <UserAvatar :url="store.userData.avatar" :width="80" :alt="store.userData.avatar" />
+    <div>Привет, {{ store.userData.name }}!</div>
   </div>
 </template>
 
