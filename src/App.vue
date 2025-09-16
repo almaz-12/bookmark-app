@@ -3,6 +3,9 @@ import CategoryList from './components/CategoryList.vue';
 import CreateButton from './components/CreateButton.vue';
 import UserProfile from './components/UserProfile.vue';
 import IconPlus from './icons/IconPlus.vue';
+import { useCategoryStore } from './stores/category.store';
+
+const store = useCategoryStore();
 </script>
 
 <template>
@@ -12,7 +15,7 @@ import IconPlus from './icons/IconPlus.vue';
         <nav class="nav">
           <UserProfile />
           <CategoryList />
-          <CreateButton>
+          <CreateButton @click="store.createCategory()">
             <IconPlus />
           </CreateButton>
         </nav>

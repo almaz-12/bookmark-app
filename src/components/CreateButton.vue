@@ -18,4 +18,7 @@ const { size = 32 } = defineProps<{ size?: number }>();
   border: 0;
   border-radius: 100%;
 }
+.create-btn:hover {
+  background: var(--color-fg-hover);
+}
 </style>

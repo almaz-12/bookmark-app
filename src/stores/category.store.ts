@@ -25,5 +25,25 @@ export const useCategoryStore = defineStore('category', () => {
     }
   }
 
-  return { categories, fetchCategories };
+  async function createCategory() {
+    try {
+      errorMessage.value = '';
+      isLoading.value = true;
+
+      const response = await http.post(BASE_ROUTES.categories, {
+        name: 'Обучение',
+        alias: 'learn',
+      });
+      if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+      categories.value?.push(response.data);
+    } catch (error) {
+      errorMessage.value = 'Не удалось загрузить данные';
+      throw error;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  return { categories, fetchCategories, createCategory };
 });

@@ -13,22 +13,6 @@ export const useUserStore = defineStore('user', () => {
       errorMessage.value = '';
       isLoading.value = true;
 
-      // await http
-      //   .post('/categories', {
-      //     name: 'Разработка',
-      //     alias: 'development',
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //     if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-
-      const response1 = await http.get('/categories');
-      console.log(response1);
-
       const response = await http.get<User>(BASE_ROUTES.user);
       if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
 
