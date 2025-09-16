@@ -1,4 +1,4 @@
-import { BASE_ROUTES } from '@/common/constants';
+import { BASE_ROUTES, http } from '@/common/constants';
 import type { User } from '@/interfaces/user.interfaces';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -13,14 +13,26 @@ export const useUserStore = defineStore('user', () => {
       errorMessage.value = '';
       isLoading.value = true;
 
-      const response = await fetch(BASE_ROUTES.user);
+      // await http
+      //   .post('/categories', {
+      //     name: 'Разработка',
+      //     alias: 'development',
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //     if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
 
-      if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+      const response1 = await http.get('/categories');
+      console.log(response1);
 
-      const data = (await response.json()) as User;
-      userData.value = data;
+      const response = await http.get<User>(BASE_ROUTES.user);
+      if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
 
-      return data;
+      userData.value = response.data;
     } catch (error) {
       errorMessage.value = 'Не удалось загрузить данные';
       throw error;

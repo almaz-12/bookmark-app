@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import CategoryList from './components/CategoryList.vue';
+import CreateButton from './components/CreateButton.vue';
 import UserProfile from './components/UserProfile.vue';
+import IconPlus from './icons/IconPlus.vue';
 </script>
 
 <template>
@@ -8,6 +11,10 @@ import UserProfile from './components/UserProfile.vue';
       <div class="app__main">
         <nav class="nav">
           <UserProfile />
+          <CategoryList />
+          <CreateButton>
+            <IconPlus />
+          </CreateButton>
         </nav>
         <main>контент</main>
       </div>
