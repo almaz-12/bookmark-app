@@ -6,7 +6,7 @@ import { useUserStore } from '../stores/user.store';
 const store = useUserStore();
 
 onMounted(async () => {
-  await store.fetchData();
+  await store.fetchUser();
 });
 </script>
 

@@ -2,6 +2,7 @@ import { BASE_ROUTES, http } from '@/common/constants';
 import type { Category } from '@/interfaces/category.interfaces';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref<Category[]>();
@@ -31,8 +32,8 @@ export const useCategoryStore = defineStore('category', () => {
       isLoading.value = true;
 
       const response = await http.post(BASE_ROUTES.categories, {
-        name: 'Обучение',
-        alias: 'learn',
+        name: 'Хобби',
+        alias: uuidv4(),
       });
       if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
 

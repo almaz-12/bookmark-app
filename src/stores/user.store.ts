@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const errorMessage = ref('');
   const isLoading = ref(false);
 
-  async function fetchData() {
+  async function fetchUser() {
     try {
       errorMessage.value = '';
       isLoading.value = true;
@@ -21,10 +21,10 @@ export const useUserStore = defineStore('user', () => {
       errorMessage.value = 'Не удалось загрузить данные';
       throw error;
     } finally {
-      console.error(errorMessage);
+      console.error(errorMessage.value);
       isLoading.value = false;
     }
   }
 
-  return { userData, fetchData };
+  return { userData, fetchUser };
 });

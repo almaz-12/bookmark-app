@@ -9,3 +9,8 @@ export const BASE_ROUTES = {
 export const http = axios.create({
   baseURL: API_BASE,
 });
+
+export const ROUTE_NAMES = {
+  AUTH: 'auth',
+  MAIN: 'main',
+};

@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import type { Category } from '@/interfaces/category.interfaces';
+import { RouterLink } from 'vue-router';
 defineProps<Category>();
 </script>
 
 <template>
   <div class="category-item">
-    <a class="category-item__link" :href="`/${alias}`">{{ name }}</a>
+    <RouterLink
+      :to="`/${alias}`"
+      active-class="category-item__link--active"
+      class="category-item__link"
+      >{{ name }}</RouterLink
+    >
   </div>
 </template>
 
@@ -15,6 +21,7 @@ defineProps<Category>();
   font-size: 16px;
   text-decoration: none;
 }
+.category-item__link--active,
 .category-item__link:hover {
   font-weight: bold;
 }
