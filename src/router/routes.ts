@@ -9,21 +9,14 @@ export const routes = [
   {
     path: '/',
     component: () => import('@/views/MainView.vue'),
-    name: ROUTE_NAMES.MAIN,
     children: [
       {
-        path: 'films',
-        name: 'films',
-        component: () => import('@/views/CategoryView.vue'),
+        path: '',
+        name: ROUTE_NAMES.MAIN,
+        component: () => import('@/views/CategoryIndexView.vue'),
       },
       {
-        path: 'learn',
-        name: 'learn',
-        component: () => import('@/views/CategoryView.vue'),
-      },
-      {
-        path: 'development',
-        name: 'development',
+        path: ':alias',
         component: () => import('@/views/CategoryView.vue'),
       },
     ],

@@ -9,38 +9,37 @@ const store = useCategoryStore();
 </script>
 
 <template>
-  <div class="app">
-    <div class="wrap">
-      <div class="app__main">
-        <nav class="nav">
-          <UserProfile />
-          <CategoryList />
-          <CreateButton @click="store.createCategory()">
-            <IconPlus />
-          </CreateButton>
-        </nav>
-        <main>
-          <RouterView />
-        </main>
-      </div>
+  <div class="wrap">
+    <div class="wrap__main">
+      <nav class="nav">
+        <UserProfile />
+        <CategoryList />
+        <CreateButton @click="store.createCategory()">
+          <IconPlus />
+        </CreateButton>
+      </nav>
+      <main class="main">
+        <RouterView />
+      </main>
     </div>
   </div>
 </template>
 
 <style scoped>
-.app {
-  min-height: 100vh;
-}
 .wrap {
   max-width: 1450px;
   padding: 140px 15px 50px;
   margin: 0 auto;
+  min-height: 100vh;
 }
-.app__main {
+.wrap__main {
   display: flex;
 }
 .nav {
   max-width: 300px;
   width: 100%;
+}
+.main {
+  flex-grow: 2;
 }
 </style>
