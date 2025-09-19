@@ -1,9 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCategoryStore } from '@/stores/category.store';
+
+const state = useCategoryStore();
+
+async function createCat() {
+  await state.createCategory();
+}
+</script>
 
 <template>
   <section class="hero-section">
     <h1>Добро пожаловать в Bookmarkly!</h1>
     <p>Чтобы начать пользоваться выберите категорию закладок или создайте новую.</p>
+    <button @click="createCat">Создать категорию</button>
   </section>
 </template>
 

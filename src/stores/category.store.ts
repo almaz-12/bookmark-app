@@ -14,7 +14,7 @@ export const useCategoryStore = defineStore('category', () => {
       errorMessage.value = '';
       isLoading.value = true;
 
-      const response = await http.get(BASE_ROUTES.categories);
+      const response = await http.get<Category[]>(BASE_ROUTES.categories);
       if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
 
       categories.value = response.data;
@@ -31,7 +31,7 @@ export const useCategoryStore = defineStore('category', () => {
       errorMessage.value = '';
       isLoading.value = true;
 
-      const response = await http.post(BASE_ROUTES.categories, {
+      const response = await http.post<Category>(BASE_ROUTES.categories, {
         name: 'Хобби',
         alias: uuidv4(),
       });
