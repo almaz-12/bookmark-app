@@ -16,9 +16,18 @@ export const routes = [
         component: () => import('@/views/CategoryIndexView.vue'),
       },
       {
-        path: ':alias',
+        path: 'categories',
+        component: () => import('@/views/CategoriesView.vue'),
+      },
+      {
+        path: 'category/:alias',
         component: () => import('@/views/CategoryView.vue'),
       },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/NotFound.vue'),
+    name: 'error-404',
   },
 ];

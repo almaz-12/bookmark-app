@@ -21,7 +21,6 @@ export const useUserStore = defineStore('user', () => {
       errorMessage.value = 'Не удалось загрузить данные';
       throw error;
     } finally {
-      console.error(errorMessage.value);
       isLoading.value = false;
     }
   }

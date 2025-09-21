@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { ROUTE_NAMES } from '@/common/constants';
 import AppButton from '@/components/AppButton.vue';
-import { useRouter } from 'vue-router';
-const router = useRouter();
+import AppInput from '@/components/AppInput.vue';
+import { ref } from 'vue';
 
-function redirectToMain() {
-  router.push({
-    name: ROUTE_NAMES.MAIN,
-  });
+const form = ref<{ email?: string; password?: string }>({});
+
+function submitForm() {
+  console.log('send');
+  form.value = {};
 }
 </script>
 
 <template>
   <div class="auth">
     <h1 class="auth__title">Bookmarkly</h1>
-    <AppButton @click="redirectToMain">Вход</AppButton>
+    <form class="auth__form" @submit.prevent="submitForm">
+      <AppInput placeholder="Введите email" v-model="form.email" />
+      <AppInput placeholder="Введите пароль" v-model="form.password" />
+      <AppButton>Вход</AppButton>
+    </form>
   </div>
 </template>
 
@@ -27,7 +31,15 @@ function redirectToMain() {
   justify-content: center;
   min-height: 100vh;
 }
-
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+  justify-content: center;
+  max-width: 274px;
+  width: 100%;
+}
 .auth__title {
   font-size: 52px;
   font-weight: 700;

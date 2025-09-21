@@ -1,13 +1,11 @@
 <script setup lang="ts">
-interface UserAvatarProps {
-  url: string;
-  width: number;
-}
+import type { UserAvatarProps } from '@/interfaces/user.interfaces';
+
 const { url } = defineProps<UserAvatarProps>();
 </script>
 
 <template>
-  <img :src="url" :width="width" />
+  <a href="/"><img :src="url" :width="width" /></a>
 </template>
 
 <style></style>

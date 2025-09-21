@@ -2,7 +2,7 @@
 import type { Category } from '@/interfaces/category.interfaces';
 import { useBookmarkStore } from '@/stores/bookmark.store';
 import { useCategoryStore } from '@/stores/category.store';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const category = ref<Category>();
@@ -10,13 +10,13 @@ const route = useRoute();
 const categoryStore = useCategoryStore();
 const bookmarkStore = useBookmarkStore();
 
+console.log(route.params.alias);
+
 watch(
-  () => ({
-    alias: route.params.alias,
-    categories: categoryStore.categories,
-  }),
-  async (data) => {
-    category.value = categoryStore.getCategoryByAlias(data.alias);
+  () => route.params.alias,
+  async () => {
+    console.log(route.params.alias);
+    category.value = categoryStore.getCategoryByAlias(route.params.alias);
     if (category.value) {
       await bookmarkStore.fetchBookmarks(category.value.id);
     }
@@ -29,6 +29,14 @@ async function createBook() {
 async function deleteBook() {
   await bookmarkStore.deleteBookmark(1);
 }
+
+onMounted(async () => {
+  console.log('onMounted');
+  category.value = categoryStore.getCategoryByAlias(route.params.alias);
+  if (category.value) {
+    await bookmarkStore.fetchBookmarks(category.value.id);
+  }
+});
 </script>
 
 <template>

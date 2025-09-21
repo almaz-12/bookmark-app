@@ -7,7 +7,7 @@ defineProps<Category>();
 <template>
   <div class="category-item">
     <RouterLink
-      :to="`/${alias}`"
+      :to="`/category/${alias}`"
       active-class="category-item__link--active"
       class="category-item__link"
       >{{ name }}</RouterLink
