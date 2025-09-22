@@ -5,6 +5,9 @@ export const BASE_ROUTES = {
   user: `/user`,
   categories: `/categories`,
   boolmarks: `/bookmarks`,
+  auth: {
+    login: `/login`,
+  },
 };
 
 export const http = axios.create({
