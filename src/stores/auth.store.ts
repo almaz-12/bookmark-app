@@ -1,14 +1,23 @@
 import { BASE_ROUTES, http } from '@/common/constants';
 import type { Auth } from '@/interfaces/auth.interfaces';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { TOKEN_KEY } from '@/common/constants';
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref<Auth>();
+  const token = ref<string | null>(null);
   const errorMessage = ref('');
   const isLoading = ref(false);
 
-  async function login(email: string, password: string) {
+  function setToken(newToken: string) {
+    token.value = newToken;
+    localStorage.setItem(TOKEN_KEY, newToken);
+  }
+
+  const getToken = computed(() => token.value);
+  const isAuthenticated = computed(() => !!token.value);
+
+  async function login(email: string, password: string): Promise<void> {
     try {
       errorMessage.value = '';
       isLoading.value = true;
@@ -18,9 +27,8 @@ export const useAuthStore = defineStore('auth', () => {
         password,
       });
       if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
-
-      token.value = response.data;
-    } catch (error) {
+      setToken(response.data.token);
+    } catch (error: any) {
       errorMessage.value = 'Не удалось получить токен';
       throw error;
     } finally {
@@ -28,5 +36,28 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { token, login };
+  // Функция для инициализации токена при загрузке приложения
+  function initToken() {
+    const storedToken = localStorage.getItem(TOKEN_KEY);
+    if (storedToken) {
+      token.value = storedToken;
+    }
+  }
+
+  // Функция выхода
+  function logout() {
+    token.value = null;
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
+  return {
+    getToken,
+    login,
+    setToken,
+    logout,
+    initToken,
+    isAuthenticated,
+    errorMessage: computed(() => errorMessage.value),
+    isLoading: computed(() => isLoading.value),
+  };
 });

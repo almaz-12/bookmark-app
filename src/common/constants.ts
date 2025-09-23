@@ -18,3 +18,5 @@ export const ROUTE_NAMES = {
   AUTH: 'auth',
   MAIN: 'main',
 };
+
+export const TOKEN_KEY = 'token-store';
