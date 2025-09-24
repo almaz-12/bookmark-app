@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
       setToken(response.data.token);
     } catch (error: any) {
-      errorMessage.value = 'Не удалось получить токен';
+      errorMessage.value = error.response.data.error;
       throw error;
     } finally {
       isLoading.value = false;

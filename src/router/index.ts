@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes';
 import { ROUTE_NAMES } from '@/common/constants';
 import { useUserStore } from '@/stores/user.store';
+import { useAuthStore } from '@/stores/auth.store';
 
 const router = createRouter({
   routes: routes,
@@ -19,17 +20,16 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-  try {
-    const store = useUserStore();
-    await store.fetchUser();
-    next();
-    return;
-  } catch (error) {
+  const authStore = useAuthStore();
+  const token = authStore.getToken;
+  if (!token) {
     next({
       name: ROUTE_NAMES.AUTH,
     });
     return;
   }
+  next();
+  return;
 });
 
 export default router;

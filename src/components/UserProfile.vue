@@ -2,18 +2,21 @@
 import UserAvatar from './UserAvatar.vue';
 import { onMounted } from 'vue';
 import { useUserStore } from '../stores/user.store';
+import { useAuthStore } from '@/stores/auth.store';
 
-const store = useUserStore();
+const userStore = useUserStore();
+const authStore = useAuthStore();
 
 onMounted(async () => {
-  await store.fetchUser();
+  await userStore.fetchUser();
 });
 </script>
 
 <template>
-  <div class="user-profile" v-if="store.userData" :name="store.userData.name">
-    <UserAvatar :url="store.userData.avatar" :width="80" :alt="store.userData.avatar" />
-    <div>Привет, {{ store.userData.name }}!</div>
+  <div class="user-profile" v-if="userStore.userData" :name="userStore.userData.name">
+    <UserAvatar :url="userStore.userData.avatar" :width="80" :alt="userStore.userData.avatar" />
+    <div>Привет, {{ userStore.userData.name }}!</div>
+    <a href="#" @click="authStore.logout">Выход</a>
   </div>
 </template>
 
