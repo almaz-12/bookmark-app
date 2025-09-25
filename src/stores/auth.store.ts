@@ -1,8 +1,8 @@
-import { BASE_ROUTES, http } from '@/common/constants';
-import type { Auth } from '@/interfaces/auth.interfaces';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { TOKEN_KEY } from '@/common/constants';
+import { BASE_ROUTES, http } from '@/common/constants';
+import type { Auth } from '@/interfaces/auth.interfaces';
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(null);

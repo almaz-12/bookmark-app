@@ -23,6 +23,6 @@ defineProps<Category>();
 }
 .category-item__link--active,
 .category-item__link:hover {
-  font-weight: bold;
+  color: #3aab89;
 }
 </style>

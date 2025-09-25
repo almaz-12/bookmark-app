@@ -3,6 +3,8 @@ import UserAvatar from './UserAvatar.vue';
 import { onMounted } from 'vue';
 import { useUserStore } from '../stores/user.store';
 import { useAuthStore } from '@/stores/auth.store';
+import ActionButton from './ActionButton.vue';
+import IconLogout from '@/icons/IconLogout.vue';
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
@@ -15,8 +17,12 @@ onMounted(async () => {
 <template>
   <div class="user-profile" v-if="userStore.userData" :name="userStore.userData.name">
     <UserAvatar :url="userStore.userData.avatar" :width="80" :alt="userStore.userData.avatar" />
-    <div>Привет, {{ userStore.userData.name }}!</div>
-    <a href="#" @click="authStore.logout">Выход</a>
+    <div class="user-profile__box">
+      Привет, {{ userStore.userData.name }}!
+      <ActionButton :size="22" title="Выход">
+        <IconLogout />
+      </ActionButton>
+    </div>
   </div>
 </template>
 
@@ -27,5 +33,9 @@ onMounted(async () => {
   gap: 24px;
   font-size: 18px;
   margin-bottom: 40px;
+}
+.user-profile__box {
+  display: flex;
+  gap: 10px;
 }
 </style>
