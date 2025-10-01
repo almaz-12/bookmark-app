@@ -3,12 +3,14 @@ import {
   CREATE_ERROR_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
   DELETE_ERROR_MESSAGE,
+  UPDATE_ERROR_MESSAGE,
   http,
 } from '@/common/constants';
 import type { Category } from '@/interfaces/category.interfaces';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
+import router from '@/router';
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);
@@ -34,13 +36,16 @@ export const useCategoryStore = defineStore('category', () => {
     try {
       clearLoading();
 
+      const alias = uuidv4();
+
       const response = await http.post<Category>(BASE_ROUTES.categories, {
-        name: 'Хобби',
-        alias: uuidv4(),
+        name: 'Новая категория',
+        alias: alias,
       });
       if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
 
       categories.value?.push(response.data);
+      router.push(`${BASE_ROUTES.category}/${alias}`);
     } catch (error) {
       handleError(CREATE_ERROR_MESSAGE, error);
     } finally {
@@ -69,6 +74,22 @@ export const useCategoryStore = defineStore('category', () => {
     }
   }
 
+  async function updateCategory(id: number, newName: string) {
+    try {
+      clearLoading();
+
+      const response = await http.put(`${BASE_ROUTES.categories}/${id}`, {
+        name: newName,
+      });
+      if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
+      categories.value = categories.value?.map((c) => (c.id === id ? { ...c, name: newName } : c));
+    } catch (error) {
+      handleError(UPDATE_ERROR_MESSAGE, error);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   function clearLoading() {
     errorMessage.value = '';
     isLoading.value = true;
@@ -86,5 +107,6 @@ export const useCategoryStore = defineStore('category', () => {
     createCategory,
     getCategoryByAlias,
     deleteCategory,
+    updateCategory,
   };
 });

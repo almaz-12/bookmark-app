@@ -37,10 +37,8 @@ async function changeCategory(newName: string) {
   if (!category.value || !newName.trim()) return;
 
   try {
-    // TODO: Реализовать обновление категории в store
-    console.log('Изменение категории:', category.value.id, 'на', newName);
-    // await categoryStore.updateCategory(category.value.id, { name: newName });
-    // category.value.name = newName; // Обновляем локальное значение
+    await categoryStore.updateCategory(category.value.id, newName);
+    category.value.name = newName;
   } catch (error) {
     console.error('Ошибка изменения категории:', error);
   }

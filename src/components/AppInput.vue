@@ -11,7 +11,7 @@ const { placeholder } = defineProps<{ placeholder?: string }>();
 .input {
   border: none;
   border-bottom: 1px solid var(--color-fg);
-  font-size: 17px;
+  font-size: 20px;
   width: 100%;
   padding: 5px 5px 5px 5px;
   height: 32px;

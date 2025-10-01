@@ -14,7 +14,6 @@ const isEditCategory = ref(false);
 
 function handleSaveClick() {
   if (editedName.value.trim() && editedName.value !== props.name) {
-    console.log(editedName.value);
     emits('change-category', editedName.value);
   }
   isEditCategory.value = false;
@@ -51,15 +50,15 @@ function handleCancelEdit() {
       <ActionButton @click="handleCancelEdit" title="Отменить"> <IconLogout /> </ActionButton>
     </div>
 
-    <div class="category-header__btns">
-      <ActionButton @click="handleDeleteClick" title="Удалить категорию">
-        <IconDelete />
-      </ActionButton>
+    <div class="category-header__btns" v-if="!isEditCategory">
       <ActionButton
         @click="isEditCategory ? handleCancelEdit() : handleEditClick()"
         :title="isEditCategory ? 'Отменить редактирование' : 'Редактировать категорию'"
       >
         <IconEdit />
+      </ActionButton>
+      <ActionButton @click="handleDeleteClick" title="Удалить категорию">
+        <IconDelete />
       </ActionButton>
     </div>
   </div>

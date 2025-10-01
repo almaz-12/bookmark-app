@@ -5,6 +5,7 @@ export const API_BASE = 'http://localhost:3000/api';
 export const BASE_ROUTES = {
   user: `/user`,
   categories: `/categories`,
+  category: `/category`,
   boolmarks: `/bookmarks`,
   auth: {
     login: `/login`,
@@ -35,5 +36,6 @@ export const ROUTE_NAMES = {
 export const TOKEN_KEY = 'token-store';
 
 export const DEFAULT_ERROR_MESSAGE = 'Не удалось загрузить данные';
-export const DELETE_ERROR_MESSAGE = 'Ошибка удаления';
-export const CREATE_ERROR_MESSAGE = 'Ошибка создания';
+export const DELETE_ERROR_MESSAGE = 'Ошибка удаления категории';
+export const CREATE_ERROR_MESSAGE = 'Ошибка создания категории';
+export const UPDATE_ERROR_MESSAGE = 'Ошибка обновления категории';
