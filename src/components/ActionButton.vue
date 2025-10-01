@@ -3,13 +3,13 @@ const { size = 32 } = defineProps<{ size?: number }>();
 </script>
 
 <template>
-  <button class="create-btn" :style="{ width: `${size}px`, height: `${size}px` }">
+  <button class="action-btn" :style="{ width: `${size}px`, height: `${size}px` }">
     <slot></slot>
   </button>
 </template>
 
 <style>
-.create-btn {
+.action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,11 @@ const { size = 32 } = defineProps<{ size?: number }>();
   border: 0;
   border-radius: 100%;
 }
-.create-btn:hover {
+.action-btn:hover {
   background: var(--color-fg-hover);
+}
+
+.action-btn--white {
+  border: 2px solid var(--color-bg);
 }
 </style>

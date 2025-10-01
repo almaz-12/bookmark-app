@@ -13,7 +13,9 @@ const { placeholder } = defineProps<{ placeholder?: string }>();
   border-bottom: 1px solid var(--color-fg);
   font-size: 17px;
   width: 100%;
-  padding: 12px;
+  padding: 5px 5px 5px 5px;
+  height: 32px;
+  font-weight: 600;
 }
 .input::placeholder {
   color: var(--color-inactive);

@@ -5,5 +5,5 @@ export interface Bookmark {
   title: string;
   description: string;
   image: string;
-  created_at: Date;
+  created_at: string;
 }

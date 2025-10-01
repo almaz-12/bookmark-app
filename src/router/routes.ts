@@ -21,7 +21,7 @@ export const routes = [
       },
       {
         path: 'category/:alias',
-        component: () => import('@/views/CategoryView.vue'),
+        component: () => import('@/views/CategoryItemView.vue'),
       },
     ],
   },
