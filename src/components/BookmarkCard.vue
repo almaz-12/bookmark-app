@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import type { Bookmark } from '@/interfaces/bookmark.interfaces';
-import AppButton from './AppButton.vue';
 import IconDeleteWhite from '@/icons/IconDeleteWhite.vue';
 import IconLogout from '@/icons/IconLogout.vue';
 import ActionButton from './ActionButton.vue';
+import { useBookmarkStore } from '@/stores/bookmark.store';
 
 const props = defineProps<Bookmark>();
 const btnSize = 48;
+const bookmarkStore = useBookmarkStore();
+
+async function deleteBookmark() {
+  if (!props.id) return;
+
+  if (!confirm(`Вы уверены, что хотите удалить закладку "${props.title}"?`)) {
+    return;
+  }
+
+  try {
+    await bookmarkStore.deleteBookmark(props.id);
+  } catch (error) {
+    alert('Не удалось удалить категорию');
+  }
+}
+
+function openLink() {
+  window.open(props.url, '_blank');
+}
 </script>
 
 <template>
@@ -19,10 +38,15 @@ const btnSize = 48;
       {{ props.description }}
     </div>
     <div class="bookmark-card__actions">
-      <ActionButton class="action-btn--white" :size="btnSize" title="Удалить">
+      <ActionButton
+        @click="deleteBookmark"
+        class="action-btn--white"
+        :size="btnSize"
+        title="Удалить"
+      >
         <IconDeleteWhite />
       </ActionButton>
-      <ActionButton class="action-btn--white" :size="btnSize">
+      <ActionButton @click="openLink" class="action-btn--white" :size="btnSize" title="Открыть">
         <IconLogout />
       </ActionButton>
     </div>

@@ -6,7 +6,7 @@ export const BASE_ROUTES = {
   user: `/user`,
   categories: `/categories`,
   category: `/category`,
-  boolmarks: `/bookmarks`,
+  bookmarks: `/bookmarks`,
   auth: {
     login: `/login`,
   },
@@ -17,7 +17,6 @@ export const http = axios.create({
 });
 
 http.interceptors.request.use((config) => {
-  // Используем хранилище внутри интерцептора, когда он вызывается
   const authStore = useAuthStore();
   const token = authStore.getToken;
 

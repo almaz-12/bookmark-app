@@ -6,7 +6,7 @@ const props = defineProps<{ data: Bookmark[] }>();
 </script>
 
 <template>
-  <div class="bookmark-list" v-if="props" v-for="card in props.data">
+  <div class="bookmark-list" v-if="props" v-for="card in props.data" :key="card.id">
     <BookmarkCard v-if="card" v-bind="card" />
   </div>
 </template>

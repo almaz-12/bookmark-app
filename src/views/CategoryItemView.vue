@@ -56,7 +56,6 @@ async function deleteCategory() {
       name: ROUTE_NAMES.MAIN,
     });
   } catch (error) {
-    console.error('Ошибка удаления категории:', error);
     alert('Не удалось удалить категорию');
   }
 }
