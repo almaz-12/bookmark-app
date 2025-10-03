@@ -8,12 +8,17 @@ export const useBookmarkStore = defineStore('bookmark', () => {
   const errorMessage = ref('');
   const isLoading = ref(false);
 
-  async function fetchBookmarks(category_id: number) {
+  async function fetchBookmarks(category_id: number, sortBy?: string, sortOrder?: string) {
     try {
       errorMessage.value = '';
       isLoading.value = true;
 
-      const response = await http.get<Bookmark[]>(`${BASE_ROUTES.bookmarks}/${category_id}`);
+      const response = await http.get<Bookmark[]>(`${BASE_ROUTES.bookmarks}/${category_id}`, {
+        params: {
+          sortBy,
+          sortOrder,
+        },
+      });
       if (response.status !== 200) throw new Error(`Ошибка HTTP: ${response.status}`);
 
       bookmarks.value = response.data;
@@ -32,13 +37,13 @@ export const useBookmarkStore = defineStore('bookmark', () => {
 
       const response = await http.post<Bookmark>(`${BASE_ROUTES.bookmarks}/${category_id}`, {
         url: 'https://github.com',
-        title: 'GitHub',
-        description: 'Code hosting platform',
+        title: 'Бб',
+        description: 'Братья Стругацкие',
         image: 'https://avatars.githubusercontent.com/u/28588751?v=4',
       });
       if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
 
-      bookmarks.value?.push(response.data);
+      bookmarks.value?.unshift(response.data);
     } catch (error) {
       errorMessage.value = 'Не удалось создать закладку';
       throw error;

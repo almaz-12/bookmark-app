@@ -38,3 +38,10 @@ export const DEFAULT_ERROR_MESSAGE = 'Не удалось загрузить д�
 export const DELETE_ERROR_MESSAGE = 'Ошибка удаления категории';
 export const CREATE_ERROR_MESSAGE = 'Ошибка создания категории';
 export const UPDATE_ERROR_MESSAGE = 'Ошибка обновления категории';
+
+export const SORT_OPTIONS = [
+  { sortField: 'created_at', label: 'По дате' },
+  { sortField: 'title', label: 'По названию' },
+];
+
+export const SORT_OPTION_DEFAULT = 'created_at';

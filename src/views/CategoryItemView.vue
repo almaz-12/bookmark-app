@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ROUTE_NAMES } from '@/common/constants';
+import { ROUTE_NAMES, SORT_OPTION_DEFAULT } from '@/common/constants';
 import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { Category } from '@/interfaces/category.interfaces';
 import { useBookmarkStore } from '@/stores/bookmark.store';
 import { useCategoryStore } from '@/stores/category.store';
-import BookmarkCard from '@/components/BookmarkCard.vue';
 import BookmarkList from '@/components/BookmarkList.vue';
+import BookmarkSort from '@/components/BookmarkSort.vue';
+import type { SortOptions } from '@/interfaces/bookmark.interfaces';
 
 const category = ref<Category>();
 const route = useRoute();
 const router = useRouter();
 const categoryStore = useCategoryStore();
 const bookmarkStore = useBookmarkStore();
+const activeSort = ref<string>(SORT_OPTION_DEFAULT);
 
 async function loadCategoryData() {
   if (categoryStore.categories.length === 0) {
@@ -60,6 +62,14 @@ async function deleteCategory() {
   }
 }
 
+async function sortBookmarks(option: SortOptions) {
+  const { sortBy, sortOrder } = option;
+  activeSort.value = sortBy;
+  if (category.value) {
+    await bookmarkStore.fetchBookmarks(category.value.id, sortBy, sortOrder);
+  }
+}
+
 onMounted(() => {
   loadCategoryData();
 });
@@ -76,7 +86,7 @@ onMounted(() => {
       @change-category="changeCategory"
       @delete-category="deleteCategory"
     />
-
+    <BookmarkSort :sortField="activeSort" @sort="sortBookmarks" />
     <BookmarkList v-if="bookmarkStore.bookmarks" :data="bookmarkStore.bookmarks" />
   </div>
 
