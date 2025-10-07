@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import type { Bookmark } from '@/interfaces/bookmark.interfaces';
 import BookmarkCard from './BookmarkCard.vue';
-import { useBookmarkStore } from '@/stores/bookmark.store';
+import BookmarkAdd from './BookmarkAdd.vue';
 
 const props = defineProps<{ data: Bookmark[] }>();
-const bookmarkStore = useBookmarkStore();
 </script>
 
 <template>
   <div class="bookmark-list">
     <BookmarkCard v-if="props.data" v-bind="card" v-for="card in props.data" :key="card.id" />
-    <button @click="bookmarkStore.createBookmark(1)">Создать</button>
+    <BookmarkAdd />
   </div>
 </template>
 

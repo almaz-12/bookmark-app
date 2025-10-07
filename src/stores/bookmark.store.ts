@@ -30,7 +30,13 @@ export const useBookmarkStore = defineStore('bookmark', () => {
     }
   }
 
-  async function createBookmark(category_id: number) {
+  async function createBookmark(
+    category_id: number,
+    url: string,
+    title: string,
+    description: string,
+    image: string,
+  ) {
     try {
       errorMessage.value = '';
       isLoading.value = true;
@@ -68,5 +74,5 @@ export const useBookmarkStore = defineStore('bookmark', () => {
     }
   }
 
-  return { bookmarks, fetchBookmarks, createBookmark, deleteBookmark };
+  return { bookmarks, fetchBookmarks, createBookmark, deleteBookmark, isLoading };
 });

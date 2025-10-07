@@ -45,3 +45,5 @@ export const SORT_OPTIONS = [
 ];
 
 export const SORT_OPTION_DEFAULT = 'created_at';
+
+export const CURRENT_CATEGORY_ID = Symbol('category_id');

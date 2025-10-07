@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, provide, ref, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ROUTE_NAMES, SORT_OPTION_DEFAULT } from '@/common/constants';
 import CategoryHeader from '@/components/CategoryHeader.vue';
@@ -16,6 +16,10 @@ const router = useRouter();
 const categoryStore = useCategoryStore();
 const bookmarkStore = useBookmarkStore();
 const activeSort = ref<string>(SORT_OPTION_DEFAULT);
+import { CURRENT_CATEGORY_ID } from '@/common/constants';
+
+const currentCategoryId = ref<number | undefined>(undefined);
+provide(CURRENT_CATEGORY_ID, currentCategoryId);
 
 async function loadCategoryData() {
   if (categoryStore.categories.length === 0) {
@@ -28,12 +32,12 @@ async function loadCategoryData() {
   }
 }
 
-watch(
-  () => route.params.alias,
-  () => {
+watch([() => route.params.alias, () => category.value?.id], ([newAlias, newId], [oldAlias]) => {
+  currentCategoryId.value = newId;
+  if (newAlias != oldAlias) {
     loadCategoryData();
-  },
-);
+  }
+});
 
 async function changeCategory(newName: string) {
   if (!category.value || !newName.trim()) return;

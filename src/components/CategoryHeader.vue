@@ -43,6 +43,7 @@ function handleCancelEdit() {
         class="category-header__input"
         type="text"
         required
+        :autofocus="true"
       />
       <ActionButton @click="handleSaveClick" title="Сохранить">
         <IconOk />
