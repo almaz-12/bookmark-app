@@ -3,18 +3,29 @@ import type { Bookmark } from '@/interfaces/bookmark.interfaces';
 import IconDeleteWhite from '@/icons/IconDeleteWhite.vue';
 import IconLogout from '@/icons/IconLogout.vue';
 import ActionButton from './ActionButton.vue';
+import PopupConfirm from './PopupConfirm.vue';
 import { useBookmarkStore } from '@/stores/bookmark.store';
+import { ref } from 'vue';
 
 const props = defineProps<Bookmark>();
 const btnSize = 48;
 const bookmarkStore = useBookmarkStore();
+const isPopupOpened = ref<boolean>(false);
+const popupMessage = ref<string>('');
+
+function openDeleteConfirm() {
+  isPopupOpened.value = true;
+  popupMessage.value = `Вы уверены, что хотите удалить закладку "${props.title}"?`;
+}
+
+function handleConfirmCancel() {
+  isPopupOpened.value = false;
+}
 
 async function deleteBookmark() {
-  if (!props.id) return;
+  isPopupOpened.value = false;
 
-  if (!confirm(`Вы уверены, что хотите удалить закладку "${props.title}"?`)) {
-    return;
-  }
+  if (!props.id) return;
 
   try {
     await bookmarkStore.deleteBookmark(props.id);
@@ -39,7 +50,7 @@ function openLink() {
     </div>
     <div class="bookmark-card__actions">
       <ActionButton
-        @click="deleteBookmark"
+        @click="openDeleteConfirm"
         class="action-btn--white"
         :size="btnSize"
         title="Удалить"
@@ -51,6 +62,12 @@ function openLink() {
       </ActionButton>
     </div>
   </div>
+  <PopupConfirm
+    :message="popupMessage"
+    :is-opened="isPopupOpened"
+    @ok="deleteBookmark"
+    @cancel="handleConfirmCancel"
+  />
 </template>
 
 <style scoped>
