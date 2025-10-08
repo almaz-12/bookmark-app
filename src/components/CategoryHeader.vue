@@ -4,8 +4,9 @@ import IconOk from '@/icons/IconOk.vue';
 import ActionButton from './ActionButton.vue';
 import IconDelete from '@/icons/IconDelete.vue';
 import AppInput from '@/components/AppInput.vue';
-import { ref } from 'vue';
 import IconLogout from '@/icons/IconLogout.vue';
+
+import { ref } from 'vue';
 
 const props = defineProps<{ name: string }>();
 const editedName = ref<string>(props.name);

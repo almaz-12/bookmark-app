@@ -6,9 +6,10 @@ import ActionButton from './ActionButton.vue';
 import PopupConfirm from './PopupConfirm.vue';
 import { useBookmarkStore } from '@/stores/bookmark.store';
 import { ref } from 'vue';
+import { BASE_HOST } from '@/common/constants';
 
 const props = defineProps<Bookmark>();
-const btnSize = 48;
+const btnSize = 38;
 const bookmarkStore = useBookmarkStore();
 const isPopupOpened = ref<boolean>(false);
 const popupMessage = ref<string>('');
@@ -41,11 +42,14 @@ function openLink() {
 
 <template>
   <div class="bookmark-card">
-    <div class="bookmark-card__img" :style="{ 'background-image': `url(${props.image})` }"></div>
+    <div
+      class="bookmark-card__img"
+      :style="{ 'background-image': `url(${BASE_HOST}${props.image})` }"
+    ></div>
     <div class="bookmark-card__title">
       {{ props.title }}
     </div>
-    <div class="bookmark-card__desc">
+    <div class="bookmark-card__desc" v-if="props.description">
       {{ props.description }}
     </div>
     <div class="bookmark-card__actions">
@@ -75,13 +79,13 @@ function openLink() {
   display: flex;
   flex-direction: column;
   border-radius: 30px;
-  padding: 20px;
+  padding: 10px;
   gap: 24px;
   box-shadow: 0px 10px 10px 0px rgba(245, 245, 247, 0.1);
   background: var(--color-fg);
 }
 .bookmark-card__img {
-  height: 162px;
+  height: 300px;
   border-radius: 20px;
   background-position: center;
   background-size: cover;
@@ -92,9 +96,11 @@ function openLink() {
 }
 .bookmark-card__desc,
 .bookmark-card__title {
-  font-weight: 500;
-  font-size: 16px;
   color: var(--color-bg);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
 }
 .bookmark-card__desc {
   font-weight: 400;

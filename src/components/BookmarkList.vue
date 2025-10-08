@@ -16,7 +16,7 @@ const props = defineProps<{ data: Bookmark[] }>();
 <style scoped>
 .bookmark-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 35px;
   padding-top: 50px;
 }

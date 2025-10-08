@@ -14,6 +14,7 @@ import router from '@/router';
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref<Category[]>([]);
+  const categoryId = ref<number>(1);
   const errorMessage = ref('');
   const isLoading = ref(false);
 
@@ -98,11 +99,16 @@ export const useCategoryStore = defineStore('category', () => {
     errorMessage.value = message;
     throw error;
   }
+  function setCategoryId(id: number) {
+    categoryId.value = id;
+  }
 
   return {
     isLoading,
     errorMessage,
     categories,
+    categoryId,
+    setCategoryId,
     fetchCategories,
     createCategory,
     getCategoryByAlias,

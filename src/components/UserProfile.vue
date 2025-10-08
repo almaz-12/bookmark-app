@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import UserAvatar from './UserAvatar.vue';
 import { onMounted } from 'vue';
 import { useUserStore } from '../stores/user.store';
-import { useAuthStore } from '@/stores/auth.store';
+
 import ActionButton from './ActionButton.vue';
 import IconLogout from '@/icons/IconLogout.vue';
+import UserAvatar from './UserAvatar.vue';
 
 const userStore = useUserStore();
-const authStore = useAuthStore();
 
 onMounted(async () => {
   await userStore.fetchUser();

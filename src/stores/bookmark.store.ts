@@ -30,22 +30,16 @@ export const useBookmarkStore = defineStore('bookmark', () => {
     }
   }
 
-  async function createBookmark(
-    category_id: number,
-    url: string,
-    title: string,
-    description: string,
-    image: string,
-  ) {
+  async function createBookmark(category_id: number, data: FormData) {
     try {
+      console.log(data);
       errorMessage.value = '';
       isLoading.value = true;
 
-      const response = await http.post<Bookmark>(`${BASE_ROUTES.bookmarks}/${category_id}`, {
-        url: 'https://github.com',
-        title: 'Бб',
-        description: 'Братья Стругацкие',
-        image: 'https://avatars.githubusercontent.com/u/28588751?v=4',
+      const response = await http.post<Bookmark>(`${BASE_ROUTES.bookmarks}/${category_id}`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Явно указываем content-type
+        },
       });
       if (response.status >= 300) throw new Error(`Ошибка HTTP: ${response.status}`);
 

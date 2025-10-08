@@ -1,7 +1,8 @@
 import { useAuthStore } from '@/stores/auth.store';
 import axios from 'axios';
 
-export const API_BASE = 'http://localhost:3000/api';
+export const BASE_HOST = 'http://localhost:3000';
+export const API_BASE = `${BASE_HOST}/api`;
 export const BASE_ROUTES = {
   user: `/user`,
   categories: `/categories`,
@@ -45,5 +46,3 @@ export const SORT_OPTIONS = [
 ];
 
 export const SORT_OPTION_DEFAULT = 'created_at';
-
-export const CURRENT_CATEGORY_ID = Symbol('category_id');
